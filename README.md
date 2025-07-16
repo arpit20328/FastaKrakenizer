@@ -1,55 +1,35 @@
 # 🧬 FastaKrakenizer
-This tool (bash script) describes how to make custom kraken2 index only from a fasta reference file without requierment of  (`names.dmp`) or  (`nodes.dmp`)  or  (`accession_list.txt`).
 
-Further it postprocess a Kraken2 classification report by replacing the **TaxID column** with actual species or sequence names using a custom taxonomy (`names.dmp`) file.
+This tool (a Bash script) builds a **custom Kraken2 index** directly from a FASTA file — without requiring NCBI's `names.dmp`, `nodes.dmp`, or `accession_list.txt`.
 
----
-
-## 📄 Importance of This tool 
-
-Kraken2 reports classification results per taxon using **TaxIDs** (typically in column 5). If you're using a **custom Kraken2 database** (e.g., built from a FASTA of specific bacterial or fungal genes), these taxids may not be informative by themselves.
-
-To improve readability, this pipeline maps those taxids back to the **original FASTA headers or species names** using the `names.dmp` file.
+It also optionally post-processes a Kraken2 classification report by replacing **TaxID** values with the actual **FASTA headers** using a generated `names.dmp`.
 
 ---
 
-## 📁 Required Files
+## 📄 Why Use This Tool?
 
-1. **Kraken2 Report (`kraken_report.txt`)**  
-   This is the default output of Kraken2. Each line typically includes:
-   - Percentage of reads
-   - Number of reads assigned
-   - Number of reads directly assigned
-   - Taxonomic rank (e.g. `S` for species)
-   - TaxID
-   - (optional) blank column or name if available
+Kraken2 reports use **numerical TaxIDs** that may be meaningless when using custom references (e.g. ARGs, plasmids, isolate genomes).
 
-2. **names.dmp**  
-   A custom taxonomy file created during Kraken2 database construction. It links TaxIDs to species names or FASTA headers. Each entry typically looks like:
+This tool:
+- Creates a **flat taxonomy** where each FASTA sequence is treated as a unique species.
+- Assigns **custom TaxIDs** (e.g., starting from 9000000).
+- Replaces TaxIDs in Kraken2 reports with readable names from your FASTA headers.
 
+---
 
-## Usage
+## 📁 Required Inputs
 
-## 🧪 Usage
+1. **FASTA file**  
+   A file like `custom.fasta`, with headers like `>Klebsiella_plasmid`.
 
-### 🔹 Build Custom Kraken2 Flat Database (No Report Yet)
+2. **(Optional) Kraken2 Report (`report.txt`)**  
+   This is the output of `kraken2 --report`, which this tool can enhance by replacing TaxIDs with species names.
+
+---
+
+## 🛠️ Usage
+
+### 🔹 Build Kraken2 Database (No Report):
 
 ```bash
 bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000
-
-### 🔹 Build Custom Kraken2 Flat Database (With Kraken report (taxid-to-name replacement))
-
-```bash
-bash  custom_kraken2_flat_db.sh  custom.fasta  kraken_custom_flat  9000000  report.txt
-
-
-
-## Sample Output 
-
-| %Reads | #Reads | #DirectReads | Rank | TaxonName           |
-| ------ | ------ | ------------ | ---- | ------------------- |
-| 60.10  | 60100  | 58000        | S    | Klebsiella\_plasmid |
-| 25.40  | 25400  | 25200        | S    | Ecoli\_ARG\_Gene    |
-| 10.00  | 10000  | 9900         | S    | Salmonella\_Isolate |
-| 4.50   | 4500   | 4400         | U    | unclassified        |
-
