@@ -27,6 +27,10 @@ Ideal for:
 2. *(Optional)* **Kraken2 Report (`report.txt`)**
 
 ---
+## Installation
+
+git clone https://github.com/arpit20328/FastaKrakenizer.git
+
 
 ## 🛠️ Usage
 
