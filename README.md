@@ -29,4 +29,4 @@ To improve readability, this pipeline maps those taxids back to the **original F
 
 ## Usage
 
-bash 
+bash custom_kraken2_flat_db.sh
