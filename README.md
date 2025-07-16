@@ -1,6 +1,6 @@
-# 🧬 Kraken2 Report Postprocessing: Replacing TaxID with Species Names
-
-This document describes how to postprocess a Kraken2 classification report by replacing the **TaxID column** with actual species or sequence names using a custom taxonomy (`names.dmp`) file.
+# 🧬 FastaKrakenizer
+This tool (bash script) describes how to make custom kraken2 index only from a fasta reference file without requierment of names.dmp , nodes.dmp or accession_list.txt files.
+Further it postprocess a Kraken2 classification report by replacing the **TaxID column** with actual species or sequence names using a custom taxonomy (`names.dmp`) file.
 
 ---
 
