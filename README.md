@@ -30,3 +30,13 @@ To improve readability, this pipeline maps those taxids back to the **original F
 ## Usage
 
 bash custom_kraken2_flat_db.sh
+
+## Sample Output 
+
+| %Reads | #Reads | #DirectReads | Rank | TaxonName           |
+| ------ | ------ | ------------ | ---- | ------------------- |
+| 60.10  | 60100  | 58000        | S    | Klebsiella\_plasmid |
+| 25.40  | 25400  | 25200        | S    | Ecoli\_ARG\_Gene    |
+| 10.00  | 10000  | 9900         | S    | Salmonella\_Isolate |
+| 4.50   | 4500   | 4400         | U    | unclassified        |
+
