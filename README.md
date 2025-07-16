@@ -14,16 +14,16 @@ Kraken2 reports use TaxIDs (numeric) which are uninformative in custom databases
 - Assigns **custom TaxIDs** (e.g. starting from 9000000+).
 - Replaces TaxIDs in Kraken2 reports with corresponding species names (FASTA headers).
 
-Ideal for:
-- Simulated reads
-- Plasmids, ARGs, mobile elements
+Ideal for:  
+- Simulated reads  
+- Plasmids, ARGs, mobile elements  
 - Custom isolate genomes
 
 ---
 
 ## 📁 Required Inputs
 
-1. **FASTA file** — e.g., `custom.fasta`
+1. **FASTA file** — e.g., `custom.fasta`  
 2. *(Optional)* **Kraken2 Report (`report.txt`)**
 
 ---
@@ -34,9 +34,19 @@ Ideal for:
 
 ```bash
 bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000
+```
 
+### 🔹 Build DB + post-process Kraken2 report:
 
+```bash
+bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000 report.txt
+```
 
+---
+
+## 📄 License
+
+```text
 MIT License
 
 Copyright (c) 2025 Arpit Mathur
@@ -58,3 +68,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+
+---
+
+## 🙋 Author & Support
+
+Developed by **Arpit Mathur**, independent researcher.  
+📧 Contact: [arpit20328@iiitd.ac.in](mailto:arpit20328@iiitd.ac.in)  
+
+🐛 For bugs, suggestions, or improvements, please open an issue in the **[GitHub Issues](https://github.com/yourusername/FastaKrakenizer/issues)** section.
+
+---
