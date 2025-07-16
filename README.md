@@ -1,6 +1,3 @@
-# FastaKrakenizer
-Converts Custom FASTA file to Kraken2 Index without need of taxonomy or accession files
-
 # Custom Kraken2 Flat Taxonomy Database Builder
 
 This script creates a **Kraken2 database with a flat taxonomy** from a FASTA file without needing NCBI taxonomy or taxid mappings.
