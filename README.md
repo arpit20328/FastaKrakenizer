@@ -30,13 +30,18 @@ To improve readability, this pipeline maps those taxids back to the **original F
 
 ## Usage
 
-Without Kraken report:
+## 🧪 Usage
 
-bash custom_kraken2_flat_db.sh  custom.fasta  kraken_custom_flat  9000000
+### 🔹 Build Custom Kraken2 Flat Database (No Report Yet)
 
-With Kraken report (taxid-to-name replacement):
+```bash
+bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000
 
+### 🔹 Build Custom Kraken2 Flat Database (With Kraken report (taxid-to-name replacement))
+
+```bash
 bash  custom_kraken2_flat_db.sh  custom.fasta  kraken_custom_flat  9000000  report.txt
+
 
 
 ## Sample Output 
