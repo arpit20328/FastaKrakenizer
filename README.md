@@ -48,6 +48,13 @@ bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000 report.tx
 
 ---
 
+
+## 📦 Example Kraken2 Index
+
+An example Kraken2 index built using FastaKrakenizer from the complete Homo sapiens genome assembly (T2T-CHM13v2.0) is available at:
+
+🔗 Zenodo Record: https://zenodo.org/records/16459107
+
 ## 📄 License
 
 ```text
