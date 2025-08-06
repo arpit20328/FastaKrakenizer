@@ -37,13 +37,7 @@ git clone https://github.com/arpit20328/FastaKrakenizer.git
 ### 🔹 Build Kraken2 DB only:
 
 ```bash
-bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000
-```
-
-### 🔹 Build DB + post-process Kraken2 report:
-
-```bash
-bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000 report.txt
+bash custom_kraken2_flat_db.sh <input_fasta> <kraken_db_dir> <starting_taxid> [<kraken_report>] [<threads>]
 ```
 
 ---
