@@ -38,6 +38,9 @@ git clone https://github.com/arpit20328/FastaKrakenizer.git
 
 ```bash
 bash custom_kraken2_flat_db.sh <input_fasta> <kraken_db_dir> <starting_taxid> [<kraken_report>] [<threads>]
+
+bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000 report.txt 8
+
 ```
 
 ---
