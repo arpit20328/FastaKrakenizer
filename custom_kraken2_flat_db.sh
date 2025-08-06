@@ -1,9 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
-if [ $# -lt 3 ] || [ $# -gt 4 ]; then
-    echo "Usage: $0 <input_fasta> <kraken_db_dir> <starting_taxid> [<kraken_report>]"
-    echo "Example: $0 filtered_library.fna kraken_custom_flat 9000000 report.txt"
+if [ $# -lt 3 ] || [ $# -gt 5 ]; then
+    echo "Usage: $0 <input_fasta> <kraken_db_dir> <starting_taxid> [<kraken_report>] [<threads>]"
+    echo "Example: $0 filtered_library.fna kraken_custom_flat 9000000 report.txt 8"
     echo
     echo "If <kraken_report> is provided, script will also convert taxids to taxon names in that report."
     exit 1
@@ -12,9 +12,8 @@ fi
 INPUT_FASTA=$1
 KRAKEN_DB=$2
 TAXID_START=$3
-
-# Optional Kraken2 report to post-process taxids->names
 REPORT_FILE="${4:-}"
+THREADS="${5:-4}"   # Default to 4 threads if not specified
 
 WORKDIR=$(pwd)
 
@@ -56,11 +55,11 @@ touch "$KRAKEN_DB"/taxonomy/merged.dmp
 touch "$KRAKEN_DB"/taxonomy/delnodes.dmp
 touch "$KRAKEN_DB"/taxonomy/acc_taxid.map
 
-echo "[6/9] Adding sequences to Kraken2 DB..."
-kraken2-build --add-to-library fixed_flat_library.fna --db "$KRAKEN_DB"
+echo "[6/9] Adding sequences to Kraken2 DB (threads=$THREADS)..."
+kraken2-build --add-to-library fixed_flat_library.fna --db "$KRAKEN_DB" --threads "$THREADS"
 
-echo "[7/9] Building Kraken2 DB..."
-kraken2-build --build --db "$KRAKEN_DB"
+echo "[7/9] Building Kraken2 DB (threads=$THREADS)..."
+kraken2-build --build --db "$KRAKEN_DB" --threads "$THREADS"
 
 echo "Kraken2 DB build completed: $KRAKEN_DB"
 
@@ -83,18 +82,10 @@ if [ -n "$REPORT_FILE" ]; then
 
     # Replace taxid with taxon name, keep other columns same except 5th replaced
     awk -F'\t' '{
-      # joined.txt columns:
-      # $1 = taxid (join key)
-      # $2 = %reads
-      # $3 = #reads
-      # $4 = #direct reads
-      # $5 = rank
-      # $6 = original taxid (duplicate of $1)
-      # $7 = name from names.dmp
       print $2"\t"$3"\t"$4"\t"$5"\t"$7
     }' "$JOINED" > "$OUTPUT_REPORT"
 
-    # Add unclassified lines (taxid=0) if any (those won't join)
+    # Add unclassified lines (taxid=0) if any
     grep -P '\t0\t' "$REPORT_FILE" >> "$OUTPUT_REPORT"
 
     echo "[9/9] Taxid replacement done. Output saved to $OUTPUT_REPORT"
