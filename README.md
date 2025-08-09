@@ -96,6 +96,10 @@ An example Kraken2 index built using FastaKrakenizer from the complete Homo sapi
 
 🔗 Zenodo Record: https://zenodo.org/records/16459107
 
+## Runtime 
+
+ GCF_009914755.1 (T2T-CHM13v2.0) Index was built in 16m19.733s with 190 CPU Threads
+
 ## 📄 License
 
 ```text
