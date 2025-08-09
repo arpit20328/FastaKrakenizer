@@ -98,7 +98,7 @@ An example Kraken2 index built using FastaKrakenizer from the complete Homo sapi
 
 ## Runtime 
 
- GCF_009914755.1 (T2T-CHM13v2.0) Index was built in 16m19.733s with 190 CPU Threads
+Index of GCF_009914755.1 (T2T-CHM13v2.0) FASTA (3 GB) built in 16 minutes 19.7 seconds using 190 CPU threads.
 
 ## 📄 License
 
