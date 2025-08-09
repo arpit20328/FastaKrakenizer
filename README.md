@@ -27,19 +27,32 @@ Ideal for:
 2. *(Optional)* **Kraken2 Report (`report.txt`)**
 
 ## Prerequisite
-1. Kraken2 : Install via conda:  conda install -c bioconda kraken2
+1. Kraken2 : Install via conda
+
+```bash
+
+   conda install -c bioconda kraken2
+
+```
 2. BBMask : Install via following commands:
-    Step 1: wget https://sourceforge.net/projects/bbmap/files/latest/download -O bbtools.tar.gz
-    Step 2: tar -xvzf bbtools.tar.gz
-    Step 3: mv bbtools ~/bbtools
-    Step 4: echo 'export PATH=$PATH:~/bbtools' >> ~/.bashrc
-    Step 5: source ~/.bashrc
+
+```bash
+wget https://sourceforge.net/projects/bbmap/files/latest/download -O bbtools.tar.gz
+tar -xvzf bbtools.tar.gz
+mv bbtools ~/bbtools
+echo 'export PATH=$PATH:~/bbtools' >> ~/.bashrc
+source ~/.bashrc
+
+```
+    
 ---
 ## Installation
+```bash
 
 git clone https://github.com/arpit20328/FastaKrakenizer.git
 
 
+```
 ## 🛠️ Usage
 
 ### 🔹 Build Kraken2 DB only:
