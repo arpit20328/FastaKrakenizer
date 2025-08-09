@@ -26,6 +26,14 @@ Ideal for:
 1. **FASTA file** — e.g., `custom.fasta`  
 2. *(Optional)* **Kraken2 Report (`report.txt`)**
 
+## Prerequisite
+1. Kraken2 : Install via conda:  conda install -c bioconda kraken2
+2. BBMask : Install via following commands:
+    wget https://sourceforge.net/projects/bbmap/files/latest/download -O bbtools.tar.gz
+    tar -xvzf bbtools.tar.gz
+    mv bbtools ~/bbtools
+    echo 'export PATH=$PATH:~/bbtools' >> ~/.bashrc
+    source ~/.bashrc
 ---
 ## Installation
 
@@ -37,9 +45,9 @@ git clone https://github.com/arpit20328/FastaKrakenizer.git
 ### 🔹 Build Kraken2 DB only:
 
 ```bash
-bash custom_kraken2_flat_db.sh <input_fasta> <kraken_db_dir> <starting_taxid> [<kraken_report>] [<threads>]
+bash custom_kraken2_flat_db.sh <input_fasta> <kraken_db_dir> <starting_taxid> [<threads>]
 
-bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000 report.txt 8
+bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000  64
 
 ```
 
