@@ -12,8 +12,24 @@ fi
 INPUT_FASTA=$1
 KRAKEN_DB=$2
 TAXID_START=$3
-REPORT_FILE="${4:-}"
-THREADS="${5:-4}"   # Default to 4 threads if not specified
+
+# Determine REPORT_FILE and THREADS depending on args count and type of 4th arg
+if [ $# -eq 3 ]; then
+    REPORT_FILE=""
+    THREADS=4
+elif [ $# -eq 4 ]; then
+    # If 4th arg is numeric, treat as threads, else as report file
+    if [[ $4 =~ ^[0-9]+$ ]]; then
+        REPORT_FILE=""
+        THREADS=$4
+    else
+        REPORT_FILE=$4
+        THREADS=4
+    fi
+else
+    REPORT_FILE=$4
+    THREADS=$5
+fi
 
 WORKDIR=$(pwd)
 
@@ -48,6 +64,9 @@ BEGIN { i = 0 }
 }
 ' "$INPUT_FASTA" > fixed_flat_library.fna
 
+echo "[4.5/9] Masking low-complexity regions with BBTools bbmask.sh (threads=$THREADS)..."
+bash /home/arpit/arpit_data/bbmap/bbmask.sh in=fixed_flat_library.fna out=fixed_flat_library_masked.fna threads=$THREADS overwrite=true Xmx=4g
+
 echo "[5/9] Setting up Kraken2 DB directory..."
 mkdir -p "$KRAKEN_DB"/taxonomy
 cp nodes.dmp names.dmp "$KRAKEN_DB"/taxonomy/
@@ -55,8 +74,8 @@ touch "$KRAKEN_DB"/taxonomy/merged.dmp
 touch "$KRAKEN_DB"/taxonomy/delnodes.dmp
 touch "$KRAKEN_DB"/taxonomy/acc_taxid.map
 
-echo "[6/9] Adding sequences to Kraken2 DB (threads=$THREADS)..."
-kraken2-build --add-to-library fixed_flat_library.fna --db "$KRAKEN_DB" --threads "$THREADS"
+echo "[6/9] Adding sequences to Kraken2 DB (threads=$THREADS), using externally masked fasta..."
+kraken2-build --add-to-library fixed_flat_library_masked.fna --db "$KRAKEN_DB" --threads "$THREADS" --no-mask
 
 echo "[7/9] Building Kraken2 DB (threads=$THREADS)..."
 kraken2-build --build --db "$KRAKEN_DB" --threads "$THREADS"
