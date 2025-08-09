@@ -53,6 +53,24 @@ bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000  64
 
 ---
 
+# Sample Output 
+
+<img width="714" height="397" alt="image" src="https://github.com/user-attachments/assets/a2ca546d-8e5a-4221-baa2-aa32533a6378" />
+
+| Column Index | Meaning                                  | Description                                                                             |
+| ------------ | ---------------------------------------- | --------------------------------------------------------------------------------------- |
+| 1            | Percentage of reads assigned             | Percentage of total reads classified to this taxon or below it (including descendants). |
+| 2            | Number of reads classified to this taxon | Number of reads classified directly to this taxon or its descendants.                   |
+| 3            | Number of reads classified directly here | Reads classified exactly to this taxon (not including descendants).                     |
+| 4            | Taxonomic rank code                      | Single-letter code indicating taxonomic rank (e.g., `S` = species, `U` = unclassified). |
+| 5            | NCBI Taxonomy ID (taxid)                 | Numeric taxonomy identifier assigned by NCBI taxonomy database.                         |
+| 6            | Taxon name                               | The scientific name or label for this taxon (e.g., species name, or "unclassified").    |
+
+
+If You want to replace the 5th column in a Kraken2 report (or similar file) — which usually contains taxonomic IDs or names — with your input FASTA headers by using the names.dmp file by following command: 
+
+awk -F '\t' 'NR==FNR { taxid_name[$1]=$3; next } { if ($5 in taxid_name) $5=taxid_name[$5]; print }' names.dmp kraken2_report.txt > kraken2_report_with_names.txt
+
 
 ## 📦 Example Kraken2 Index
 
