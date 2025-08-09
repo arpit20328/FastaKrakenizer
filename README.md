@@ -29,11 +29,11 @@ Ideal for:
 ## Prerequisite
 1. Kraken2 : Install via conda:  conda install -c bioconda kraken2
 2. BBMask : Install via following commands:
-    wget https://sourceforge.net/projects/bbmap/files/latest/download -O bbtools.tar.gz
-    tar -xvzf bbtools.tar.gz
-    mv bbtools ~/bbtools
-    echo 'export PATH=$PATH:~/bbtools' >> ~/.bashrc
-    source ~/.bashrc
+    Step 1: wget https://sourceforge.net/projects/bbmap/files/latest/download -O bbtools.tar.gz
+    Step 2: tar -xvzf bbtools.tar.gz
+    Step 3: mv bbtools ~/bbtools
+    Step 4: echo 'export PATH=$PATH:~/bbtools' >> ~/.bashrc
+    Step 5: source ~/.bashrc
 ---
 ## Installation
 
@@ -66,11 +66,16 @@ bash custom_kraken2_flat_db.sh custom.fasta kraken_custom_flat 9000000  64
 | 5            | NCBI Taxonomy ID (taxid)                 | Numeric taxonomy identifier assigned by NCBI taxonomy database.                         |
 | 6            | Taxon name                               | The scientific name or label for this taxon (e.g., species name, or "unclassified").    |
 
+## Replacing taxid names with Inpur FASTA Headers
 
 If You want to replace the 5th column in a Kraken2 report (or similar file) — which usually contains taxonomic IDs or names — with your input FASTA headers by using the names.dmp file by following command: 
 
+```bash
+
 awk -F '\t' 'NR==FNR { taxid_name[$1]=$3; next } { if ($5 in taxid_name) $5=taxid_name[$5]; print }' names.dmp kraken2_report.txt > kraken2_report_with_names.txt
 
+
+```
 
 ## 📦 Example Kraken2 Index
 
